@@ -9,13 +9,13 @@
 ;;; Commentary:
 
 ;; This package allows you to postpone a scheduled entry, hiding it from the
-;; agenda buffer for today. It is especially useful for habits (see chapter
+;; agenda buffer for today.  It is especially useful for habits (see chapter
 ;; "5.3.3 Tracking your habits" in the org manual).
 ;;
 ;; To use it, you have to customize your `org-agenda-custom-commands' by adding
 ;; this line to the list of settings of your custom command for today's agenda:
 ;;   (org-agenda-skip-function '(org-agenda-skip-if-postponed))
-;; See the docstring of `org-agenda-skip-if-postponed' for details. Once you've
+;; See the docstring of `org-agenda-skip-if-postponed' for details.  Once you've
 ;; done that, you can call `org-postpone-entry-until-tomorrow' (bound to 'k' by
 ;; default) from the agenda buffer to hide the entry at the point.
 
@@ -46,8 +46,8 @@
 
 
 (defun org-postpone--is-entry-postponed-today (&optional pom)
-  "Internal. Is the property POSTPONED contains the today's date
-in the entry at point?"
+  "Internal.
+Is the property POSTPONED contains the today's date in the entry at point?"
   (let ((postponed (org-entry-get (or pom (point)) "POSTPONED")))
     (when postponed
       (equal (org-time-today)
@@ -59,17 +59,16 @@ in the entry at point?"
 
 Returns nil if the entry shouldn't be skipped; returns the
 position of the next heading if the entry is postponed today
-(see `org-agenda-skip-if' and `org-agenda-skip-function' for
-     details).
+\(see `org-agenda-skip-if' and `org-agenda-skip-function' for
+details).
 
 To use it, add something like this to `org-agenda-custom-commands':
 
-(\"x\" \"My agenda for today\"
+\(\"x\" \"My agenda for today\"
  ((agenda \"\" ((org-agenda-ndays 1))))
  ((org-agenda-skip-function '(org-agenda-skip-if-postponed)) ; <-- add this
   ;; maybe more options here...
-  ))
-"
+  ))"
   (let (beg end)
     (org-back-to-heading t)
     (setq beg (point)
@@ -80,7 +79,8 @@ To use it, add something like this to `org-agenda-custom-commands':
 
 
 (defun org-postpone--set-postponed ()
-  "Internal. Set the :POSTPONED: property to the current date for
+  "Internal.
+Set the :POSTPONED: property to the current date for
 the agenda entry at point; adapted from `org-agenda-set-property'."
   (org-agenda-check-no-diary)
   (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
@@ -88,7 +88,8 @@ the agenda entry at point; adapted from `org-agenda-set-property'."
          (buffer (marker-buffer hdmarker))
          (pos (marker-position hdmarker))
          (inhibit-read-only t)
-         newhead)
+         ;; newhead
+         )
     (org-with-remote-undo buffer
       (with-current-buffer buffer
         (widen)
@@ -107,9 +108,9 @@ the agenda entry at point; adapted from `org-agenda-set-property'."
 
 
 (defun org-postpone-entry-until-tomorrow ()
-  "Hide the scheduled entry from the agenda for today. Note that
-this will not affect the scheduling: the entry will be shown
-again tomorrow. See also: `org-agenda-skip-if-postponed'"
+  "Hide the scheduled entry from the agenda for today.
+Note that this will not affect the scheduling: the entry will be shown
+again tomorrow.  See also: `org-agenda-skip-if-postponed'"
   (interactive)
   (org-agenda-check-type t 'agenda)
 

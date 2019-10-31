@@ -20,14 +20,14 @@ This package is available on [[https://melpa.org/][MELPA]]; you can install it v
 Alternatively, you can download the file and install it manually via =package-install-file= or just evaluate the file's contents.
 
 * Setup
-After you've installed the package, you need to add =org-agenda-skip-if-postponed= to the list of skip funcitons for your agenda view. For example, you might add something like this to your config:
+After you've installed the package, you need to add =org-postpone-skip-if-postponed= to the list of skip funcitons for your agenda view. For example, you might add something like this to your config:
 
 #+BEGIN_SRC emacs-lisp 
 (setq org-agenda-custom-commands
       '(("x" "Tasks for today"
          ((agenda "" ((org-agenda-ndays 1))))
          (; maybe more settings here
-          (org-agenda-skip-function '(org-agenda-skip-if-postponed)))) ; <-- add this
+          (org-agenda-skip-function '(org-postpone-skip-if-postponed)))) ; <-- add this
 
         ;; other agenda commands here... 
         ))

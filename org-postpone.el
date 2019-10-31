@@ -14,8 +14,8 @@
 ;;
 ;; To use it, you have to customize your `org-agenda-custom-commands' by adding
 ;; this line to the list of settings of your custom command for today's agenda:
-;;   (org-agenda-skip-function '(org-agenda-skip-if-postponed))
-;; See the docstring of `org-agenda-skip-if-postponed' for details.  Once you've
+;;   (org-agenda-skip-function '(org-postpone-skip-if-postponed))
+;; See the docstring of `org-postpone-skip-if-postponed' for details.  Once you've
 ;; done that, you can call `org-postpone-entry-until-tomorrow' (bound to 'k' by
 ;; default) from the agenda buffer to hide the entry at the point.
 
@@ -54,7 +54,7 @@ Is the property POSTPONED contains the today's date in the entry at point?"
              (org-time-string-to-seconds postponed)))))
 
 
-(defun org-agenda-skip-if-postponed ()
+(defun org-postpone-skip-if-postponed ()
   "Skip current entry if it's been postponed.
 
 Returns nil if the entry shouldn't be skipped; returns the
@@ -66,7 +66,7 @@ To use it, add something like this to `org-agenda-custom-commands':
 
 \(\"x\" \"My agenda for today\"
  ((agenda \"\" ((org-agenda-ndays 1))))
- ((org-agenda-skip-function '(org-agenda-skip-if-postponed)) ; <-- add this
+ ((org-agenda-skip-function '(org-postpone-skip-if-postponed)) ; <-- add this
   ;; maybe more options here...
   ))"
   (let (beg end)
@@ -110,7 +110,7 @@ the agenda entry at point; adapted from `org-agenda-set-property'."
 (defun org-postpone-entry-until-tomorrow ()
   "Hide the scheduled entry from the agenda for today.
 Note that this will not affect the scheduling: the entry will be shown
-again tomorrow.  See also: `org-agenda-skip-if-postponed'"
+again tomorrow.  See also: `org-postpone-skip-if-postponed'"
   (interactive)
   (org-agenda-check-type t 'agenda)
 

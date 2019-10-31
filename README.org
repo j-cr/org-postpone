@@ -1,0 +1,42 @@
+
+* org-postpone.el
+This package allows you to postpone a scheduled entry, hiding it from the agenda
+buffer for today. It is especially useful for [[https://orgmode.org/manual/Tracking-your-habits.html][habits]] with minimum and maximum
+ranges.
+
+Once you installed it, you can invoke =org-postpone-entry-until-tomorrow=
+command (bound to =k= by default) in the agenda buffer to hide the selected
+task. Note that it won't be rescheduled (it's only hidden from the agenda view),
+so tomorrow it will appear again as normal. Thus the idea is that if you have a
+number of habits or other scheduled tasks, you can hide the ones you don't feel
+like doing today so they won't clutter your agenda view. Why do it today if you
+can leave it for tomorrow?
+
+* Installation
+This package is available on [[https://melpa.org/][MELPA]]; you can install it via
+
+: M-x package-install org-postpone RET
+
+Alternatively, you can download the file and install it manually via =package-install-file= or just evaluate the file's contents.
+
+* Setup
+After you've installed the package, you need to add =org-agenda-skip-if-postponed= to the list of skip funcitons for your agenda view. For example, you might add something like this to your config:
+
+#+BEGIN_SRC emacs-lisp 
+(setq org-agenda-custom-commands
+      '(("x" "Tasks for today"
+         ((agenda "" ((org-agenda-ndays 1))))
+         (; maybe more settings here
+          (org-agenda-skip-function '(org-agenda-skip-if-postponed)))) ; <-- add this
+
+        ;; other agenda commands here... 
+        ))
+#+END_SRC
+
+To customize the keybinding, use this snippet:
+ 
+#+BEGIN_SRC emacs-lisp
+(org-defkey org-agenda-mode-map "k" 'org-postpone-entry-until-tomorrow)
+#+END_SRC
+
+That's it!

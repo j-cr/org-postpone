@@ -1,4 +1,4 @@
-;;; org-postpone.el --- Adds ability to postpone tasks in agenda buffer -*- lexical-binding: t -*-
+;;; org-postpone.el --- Postpone tasks in agenda buffers -*- lexical-binding: t -*-
 
 ;; URL: https://github.com/j-cr/org-postpone
 ;; Keywords: org, outlines, hypermedia, calendar, wp

@@ -45,10 +45,10 @@
   (require 'cl))
 
 
-(defun org-postpone--is-entry-postponed-today (&optional pom)
+(defun org-postpone--is-entry-postponed-today ()
   "Internal.
 Is the property POSTPONED contains the today's date in the entry at point?"
-  (let ((postponed (org-entry-get (or pom (point)) "POSTPONED")))
+  (let ((postponed (org-entry-get (point) "POSTPONED")))
     (when postponed
       (equal (org-time-today)
              (org-time-string-to-seconds postponed)))))

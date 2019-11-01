@@ -3,6 +3,7 @@
 ;; URL: https://github.com/j-cr/org-postpone
 ;; Keywords: org, outlines, hypermedia, calendar, wp
 ;; Version: 1.0
+;; Package-Requires: ((emacs "24.3"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -42,7 +43,7 @@
 (require 'org-agenda)
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 
 (defun org-postpone--is-entry-postponed-today ()

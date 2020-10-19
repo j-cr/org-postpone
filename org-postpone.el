@@ -45,6 +45,19 @@
 (eval-when-compile
   (require 'cl-lib))
 
+(defun org-postpone--today ()
+  "Time in seconds today at 0:00.
+Returns the float number of seconds since the beginning of the
+epoch to the beginning of today (00:00).
+
+Modified from Org 9.1.9, but honors `org-extend-today-until'."
+  (pcase-let ((`(,_sec ,_min ,hr ,day ,month ,year . ,rest) (decode-time)))
+    (float-time
+     (apply #'encode-time
+            0 0 0
+            (if (< hr org-extend-today-until) (1- day) day)
+            month year
+            rest))))
 
 (defun org-postpone--is-entry-postponed-today ()
   "Internal.
@@ -104,7 +117,7 @@ the agenda entry at point; adapted from `org-agenda-set-property'."
         ;; only this line is changed compared to org-agenda-set-property:
         (org-set-property "POSTPONED"
                           (with-temp-buffer
-                            (org-insert-time-stamp (org-time-today)
+                            (org-insert-time-stamp (org-postpone--today)
                                                    nil t)))))))
 
 

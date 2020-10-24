@@ -64,7 +64,7 @@ Modified from Org 9.1.9, but honors `org-extend-today-until'."
 Is the property POSTPONED contains the today's date in the entry at point?"
   (let ((postponed (org-entry-get (point) "POSTPONED")))
     (when postponed
-      (equal (org-time-today)
+      (equal (org-postpone--today)
              (org-time-string-to-seconds postponed)))))
 
 
